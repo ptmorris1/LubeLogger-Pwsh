@@ -2,6 +2,8 @@
 
 A PowerShell wrapper for the [LubeLogger](https://github.com/hargata/lubelog) API — a self-hosted vehicle maintenance and fuel tracking application.
 
+> **Disclaimer:** AI assistance (GitHub Copilot) was used to help write documentation and repetitive boilerplate code. All design decisions, implementation direction, and testing were performed by a human.
+
 ## About LubeLogger
 
 LubeLogger is a free, open-source web application that helps you track vehicle maintenance, fuel costs, and service history. Learn more at: https://lubelogger.com

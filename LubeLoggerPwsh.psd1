@@ -1,9 +1,9 @@
 @{
-    ModuleVersion          = '1.0.0'
+    ModuleVersion          = '0.1.0'
     Guid                   = '12345678-1234-1234-1234-123456789012'
-    CompanyName            = 'Your Organization'
-    Author                 = 'Your Name'
-    Copyright              = '2026 Your Organization'
+    CompanyName            = 'Patrick Morris'
+    Author                 = 'Patrick Morris'
+    Copyright              = '2026 Patrick Morris'
     RootModule             = 'LubeLoggerPwsh.psm1'
     PowerShellVersion      = '7.5'
     CompatiblePSEditions   = @('Core')
@@ -13,7 +13,8 @@
         'LubeLoggerPwsh.psm1',
         'LubeLoggerPwsh.psd1',
         'public/Get-LLVehicle.ps1',
-        'public/Get-LLReminder.ps1'
+        'public/Get-LLReminder.ps1',
+        'public/Get-LLCalendar.ps1'
     )
     
     PrivateData = @{
@@ -22,9 +23,9 @@
             ProjectURI   = 'https://github.com/ptmorris1/LubeLogger-Pwsh'
             LicenseURI   = 'https://github.com/ptmorris1/LubeLogger-Pwsh/blob/main/LICENSE'
             ReleaseNotes = @'
-# v1.0.0 - Initial Release
-- Get-LLReminder: Retrieve reminders with optional filtering by vehicle ID, tags, or urgency levelsh
-- Initialize-ApiRequest: Internal helper for consistent authentication
+# v0.1.0 - Initial Release
+- Get-LLVehicle: Retrieve vehicles from /api/vehicles using ApiKey or Credential authentication.
+- Get-LLReminder: Retrieve reminders from /api/vehicle/reminders/all with optional Id, Tags, and Urgencies filters.
 '@
         }
     }
