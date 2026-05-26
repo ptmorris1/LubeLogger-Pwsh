@@ -1,12 +1,12 @@
-function Get-LLReminder {
+function Get-LLVehicleInfo {
 <#
 .SYNOPSIS
-    Gets reminders from the LubeLogger API.
+    Gets extended vehicle information from the LubeLogger API.
 
 .DESCRIPTION
-    Calls /api/vehicle/reminders/all and returns reminders with optional filtering
-    by record Id, Tags, and Urgencies.
-    Authentication supports either ApiKey or PSCredential.
+    Calls the /api/vehicle/info endpoint and returns the response content in a
+    consistent PSCustomObject wrapper. Authentication supports either ApiKey or
+    PSCredential.
 
 .PARAMETER BaseUrl
     The base URL of the LubeLogger instance (for example: https://lulogger.domain.com).
@@ -15,32 +15,29 @@ function Get-LLReminder {
     The LubeLogger API key. Use this OR Credential, not both.
 
 .PARAMETER Credential
-    PSCredential used for Basic authentication. Use this instead of ApiKey.
+    PSCredential used for Basic authentication. Use this OR ApiKey, not both.
 
-.PARAMETER Id
-    Optional. Filter reminders by the specific record ID.
-
-.PARAMETER Tags
-    Optional. Filter reminders by one or more tags.
-
-.PARAMETER Urgencies
-    Optional. Filter reminders by urgency level(s). Valid values: NotUrgent, VeryUrgent, Urgent, PastDue.
+.PARAMETER VehicleId
+    Optional. Vehicle ID to filter vehicle info to a specific vehicle.
 
 .EXAMPLE
-    Get-LLReminder -BaseUrl "https://car.phunky1.com" -Credential $creds
+    Get-LLVehicleInfo -BaseUrl "https://lulogger.domain.com" -ApiKey "your-api-key"
 
-    Returns all reminders for all vehicles using Basic authentication.
+    Returns vehicle info using API key authentication.
 
 .EXAMPLE
-    Get-LLReminder -BaseUrl "https://car.phunky1.com" -Credential $creds -Id "456"
+    $creds = Get-Credential -UserName "your-username"
+    Get-LLVehicleInfo -BaseUrl "https://lulogger.domain.com" -Credential $creds
 
-    Returns a specific reminder record by ID from all vehicles.
+    Returns vehicle info using Basic authentication.
+
+.EXAMPLE
+    Get-LLVehicleInfo -BaseUrl "https://lulogger.domain.com" -ApiKey "your-api-key" -VehicleId "123"
+
+    Returns vehicle info for vehicle ID 123.
 
 .OUTPUTS
-    PSCustomObject with Url, StatusCode, StatusMessage, Reminders, and Success properties.
-
-.NOTES
-    Credential auth is not supported for SSO users.
+    PSCustomObject
 #>
     [CmdletBinding(DefaultParameterSetName = 'ApiKey')]
     param(
@@ -54,36 +51,16 @@ function Get-LLReminder {
         [PSCredential]$Credential,
 
         [Parameter()]
-        [string]$Id,
-
-        [Parameter()]
-        [string[]]$Tags,
-
-        [Parameter()]
-        [ValidateSet('NotUrgent', 'VeryUrgent', 'Urgent', 'PastDue')]
-        [string[]]$Urgencies
+        [string]$VehicleId
     )
 
     $base = $BaseUrl.TrimEnd('/')
-    $url = "$base/api/vehicle/reminders/all"
+    $url = "$base/api/vehicle/info"
 
     $query = @()
-
-    if ($PSBoundParameters.ContainsKey('Id')) {
-        $query += "id=$([System.Net.WebUtility]::UrlEncode($Id))"
-    }
-
-    if ($PSBoundParameters.ContainsKey('Tags')) {
-        foreach ($tag in $Tags) {
-            $query += "tags=$([System.Net.WebUtility]::UrlEncode($tag))"
-        }
-    }
-
-    if ($PSBoundParameters.ContainsKey('Urgencies')) {
-        # Valid urgency values: NotUrgent, VeryUrgent, Urgent, PastDue
-        foreach ($urgency in $Urgencies) {
-            $query += "urgencies=$([System.Net.WebUtility]::UrlEncode($urgency))"
-        }
+    if ($PSBoundParameters.ContainsKey('VehicleId')) {
+        $encodedVehicleId = [System.Net.WebUtility]::UrlEncode($VehicleId)
+        $query += "vehicleId=$encodedVehicleId"
     }
 
     if ($query.Count -gt 0) {
@@ -109,18 +86,18 @@ function Get-LLReminder {
             -Method Get `
             -ErrorAction Stop
 
-        $reminders = $null
+        $vehicleInfo = $null
         try {
-            $reminders = $response.Content | ConvertFrom-Json
+            $vehicleInfo = $response.Content | ConvertFrom-Json
         } catch {
-            $reminders = $response.Content
+            $vehicleInfo = $response.Content
         }
 
         [PSCustomObject]@{
             Url           = $url
             StatusCode    = $response.StatusCode
             StatusMessage = 'The request succeeded'
-            Reminders     = $reminders
+            VehicleInfo   = $vehicleInfo
             Success       = ($response.StatusCode -eq 200)
         }
     } catch {
@@ -141,7 +118,7 @@ function Get-LLReminder {
             Url           = $url
             StatusCode    = $statusCode
             StatusMessage = $statusMessage
-            Reminders     = $null
+            VehicleInfo   = $null
             Success       = $false
         }
     }

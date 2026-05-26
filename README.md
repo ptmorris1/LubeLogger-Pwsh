@@ -10,9 +10,7 @@ LubeLogger is a free, open-source web application that helps you track vehicle m
 
 ## LubeLogger PowerShell Module Features
 
-- Query vehicles and their details
-- Retrieve vehicle reminders with filtering by ID, tags, or urgency
-- Consistent authentication via API key or Windows credentials
+- API wrappers for LubeLogger endpoints with consistent auth and output patterns
 - Structured PowerShell object output for pipeline integration
 - Error handling with detailed status messages
 
@@ -28,49 +26,9 @@ Import-Module LubeLoggerPwsh
 
 ## Quick Start
 
-### Using API Key
+See the full endpoint and implementation matrix in [docs/api-reference.md](docs/api-reference.md).
 
-```powershell
-# Get all vehicles
-Get-LLVehicle -BaseUrl "https://your-lubelogger-instance.com" -ApiKey "your-api-key"
-
-# Get all reminders
-Get-LLReminder -BaseUrl "https://your-lubelogger-instance.com" -ApiKey "your-api-key"
-```
-
-### Using Basic Authentication
-
-```powershell
-$creds = Get-Credential
-Get-LLVehicle -BaseUrl "https://your-lubelogger-instance.com" -Credential $creds
-Get-LLReminder -BaseUrl "https://your-lubelogger-instance.com" -Credential $creds
-```
-
-### Filter Reminders
-
-```powershell
-# Get reminders for a specific vehicle
-Get-LLReminder -BaseUrl "https://your-lubelogger-instance.com" -ApiKey "your-api-key" -Id "123"
-
-# Get urgent reminders
-Get-LLReminder -BaseUrl "https://your-lubelogger-instance.com" -ApiKey "your-api-key" -Urgencies "Urgent"
-```
-
-## Functions
-
-### Get-LLVehicle
-Retrieves vehicle information from LubeLogger.
-
-```powershell
-Get-Help Get-LLVehicle -Full
-```
-
-### Get-LLReminder
-Retrieves vehicle reminders with optional filtering by ID, tags, or urgency level.
-
-```powershell
-Get-Help Get-LLReminder -Full
-```
+Function help documentation will be expanded over time.
 
 ## Requirements
 

@@ -20,7 +20,7 @@ function ConvertFrom-ICal {
     PSCustomObject with commonly used event properties.
 
 .NOTES
-    This function only parses ICS content. Sync to Google Calendar will be implemented separately.
+    This function only parses ICS content.
 #>
     [CmdletBinding()]
     param(

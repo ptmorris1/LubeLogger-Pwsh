@@ -12,9 +12,13 @@
     FileList               = @(
         'LubeLoggerPwsh.psm1',
         'LubeLoggerPwsh.psd1',
+        'public/ConvertFrom-ICal.ps1',
         'public/Get-LLVehicle.ps1',
         'public/Get-LLReminder.ps1',
-        'public/Get-LLCalendar.ps1'
+        'public/Get-LLCalendar.ps1',
+        'public/Get-LLVehicleInfo.ps1',
+        'public/Get-LLVehicleAdjustedOdometer.ps1',
+        'public/Get-LLOdometerRecord.ps1'
     )
     
     PrivateData = @{
@@ -26,6 +30,11 @@
 # v0.1.0 - Initial Release
 - Get-LLVehicle: Retrieve vehicles from /api/vehicles using ApiKey or Credential authentication.
 - Get-LLReminder: Retrieve reminders from /api/vehicle/reminders/all with optional Id, Tags, and Urgencies filters.
+- Get-LLCalendar: Retrieve calendar data from /api/calendar with optional OutputPath file save.
+- ConvertFrom-ICal: Convert ICS calendar content to PowerShell event objects.
+- Get-LLVehicleInfo: Retrieve extended vehicle info from /api/vehicle/info.
+- Get-LLVehicleAdjustedOdometer: Retrieve adjusted odometer data from /api/vehicle/adjustedodometer with required VehicleId and Odometer parameters.
+- Get-LLOdometerRecord: Retrieve odometer records from /api/vehicle/odometerrecords/all with optional Id, StartDate, EndDate, and Tags filters.
 '@
         }
     }

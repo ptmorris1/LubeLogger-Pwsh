@@ -1,11 +1,11 @@
-function Get-LLReminder {
+function Get-LLOdometerRecord {
 <#
 .SYNOPSIS
-    Gets reminders from the LubeLogger API.
+    Gets odometer records from the LubeLogger API.
 
 .DESCRIPTION
-    Calls /api/vehicle/reminders/all and returns reminders with optional filtering
-    by record Id, Tags, and Urgencies.
+    Calls /api/vehicle/odometerrecords/all and returns odometer records for all vehicles
+    with optional filtering by record Id, StartDate, EndDate, and Tags.
     Authentication supports either ApiKey or PSCredential.
 
 .PARAMETER BaseUrl
@@ -18,26 +18,34 @@ function Get-LLReminder {
     PSCredential used for Basic authentication. Use this instead of ApiKey.
 
 .PARAMETER Id
-    Optional. Filter reminders by the specific record ID.
+    Optional. Filter odometer records by the specific record ID.
+
+.PARAMETER StartDate
+    Optional. Minimum date for records.
+
+.PARAMETER EndDate
+    Optional. Maximum date for records.
 
 .PARAMETER Tags
-    Optional. Filter reminders by one or more tags.
-
-.PARAMETER Urgencies
-    Optional. Filter reminders by urgency level(s). Valid values: NotUrgent, VeryUrgent, Urgent, PastDue.
+    Optional. Filter odometer records by one or more tags.
 
 .EXAMPLE
-    Get-LLReminder -BaseUrl "https://car.phunky1.com" -Credential $creds
+    Get-LLOdometerRecord -BaseUrl "https://car.phunky1.com" -Credential $creds
 
-    Returns all reminders for all vehicles using Basic authentication.
+    Returns odometer records for all vehicles using Basic authentication.
 
 .EXAMPLE
-    Get-LLReminder -BaseUrl "https://car.phunky1.com" -Credential $creds -Id "456"
+    Get-LLOdometerRecord -BaseUrl "https://car.phunky1.com" -Credential $creds -Tags "maintenance", "trip"
 
-    Returns a specific reminder record by ID from all vehicles.
+    Returns odometer records filtered by tags.
+
+.EXAMPLE
+    Get-LLOdometerRecord -BaseUrl "https://car.phunky1.com" -Credential $creds -StartDate "2026-01-01" -EndDate "2026-01-31"
+
+    Returns odometer records in the provided date range.
 
 .OUTPUTS
-    PSCustomObject with Url, StatusCode, StatusMessage, Reminders, and Success properties.
+    PSCustomObject with Url, StatusCode, StatusMessage, OdometerRecords, and Success properties.
 
 .NOTES
     Credential auth is not supported for SSO users.
@@ -57,15 +65,17 @@ function Get-LLReminder {
         [string]$Id,
 
         [Parameter()]
-        [string[]]$Tags,
+        [string]$StartDate,
 
         [Parameter()]
-        [ValidateSet('NotUrgent', 'VeryUrgent', 'Urgent', 'PastDue')]
-        [string[]]$Urgencies
+        [string]$EndDate,
+
+        [Parameter()]
+        [string[]]$Tags
     )
 
     $base = $BaseUrl.TrimEnd('/')
-    $url = "$base/api/vehicle/reminders/all"
+    $url = "$base/api/vehicle/odometerrecords/all"
 
     $query = @()
 
@@ -73,16 +83,17 @@ function Get-LLReminder {
         $query += "id=$([System.Net.WebUtility]::UrlEncode($Id))"
     }
 
+    if ($PSBoundParameters.ContainsKey('StartDate')) {
+        $query += "startDate=$([System.Net.WebUtility]::UrlEncode($StartDate))"
+    }
+
+    if ($PSBoundParameters.ContainsKey('EndDate')) {
+        $query += "endDate=$([System.Net.WebUtility]::UrlEncode($EndDate))"
+    }
+
     if ($PSBoundParameters.ContainsKey('Tags')) {
         foreach ($tag in $Tags) {
             $query += "tags=$([System.Net.WebUtility]::UrlEncode($tag))"
-        }
-    }
-
-    if ($PSBoundParameters.ContainsKey('Urgencies')) {
-        # Valid urgency values: NotUrgent, VeryUrgent, Urgent, PastDue
-        foreach ($urgency in $Urgencies) {
-            $query += "urgencies=$([System.Net.WebUtility]::UrlEncode($urgency))"
         }
     }
 
@@ -109,19 +120,19 @@ function Get-LLReminder {
             -Method Get `
             -ErrorAction Stop
 
-        $reminders = $null
+        $odometerRecords = $null
         try {
-            $reminders = $response.Content | ConvertFrom-Json
+            $odometerRecords = $response.Content | ConvertFrom-Json
         } catch {
-            $reminders = $response.Content
+            $odometerRecords = $response.Content
         }
 
         [PSCustomObject]@{
-            Url           = $url
-            StatusCode    = $response.StatusCode
-            StatusMessage = 'The request succeeded'
-            Reminders     = $reminders
-            Success       = ($response.StatusCode -eq 200)
+            Url            = $url
+            StatusCode     = $response.StatusCode
+            StatusMessage  = 'The request succeeded'
+            OdometerRecords = $odometerRecords
+            Success        = ($response.StatusCode -eq 200)
         }
     } catch {
         $statusCode = $null
@@ -138,11 +149,11 @@ function Get-LLReminder {
         }
 
         [PSCustomObject]@{
-            Url           = $url
-            StatusCode    = $statusCode
-            StatusMessage = $statusMessage
-            Reminders     = $null
-            Success       = $false
+            Url            = $url
+            StatusCode     = $statusCode
+            StatusMessage  = $statusMessage
+            OdometerRecords = $null
+            Success        = $false
         }
     }
 }

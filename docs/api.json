@@ -1,0 +1,1333 @@
+[
+  {
+    "category": "Vehicles",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicles",
+        "description": "Gets list of vehicles user has access to",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/info",
+        "description": "Gets details for list of vehicles or a specific vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": false,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/adjustedodometer",
+        "description": "Gets odometer reading with adjustments applied",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "odometer",
+            "required": true,
+            "placeholder": "Unadjusted odometer"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicles/add",
+        "description": "Adds a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"year\": 2019,\n  \"make\": \"Nissan\",\n  \"model\": \"Altima\",\n  \"identifier\": \"LicensePlate\",\n  \"licensePlate\": \"HITNCURBS\",\n  \"fuelType\": \"Gasoline\",\n  \"tags\": \"sedan nissan\",\n  \"extraFields\": [\n    {\n      \"name\": \"VIN\",\n      \"value\": \"0000\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicles/update",
+        "description": "Updates a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"year\": 2019,\n  \"make\": \"Nissan\",\n  \"model\": \"Altima\",\n  \"identifier\": \"LicensePlate\",\n  \"licensePlate\": \"HITNCURBS\",\n  \"fuelType\": \"Diesel\",\n  \"tags\": \"sedan nissan\",\n  \"extraFields\": [\n    {\n      \"name\": \"VIN\",\n      \"value\": \"0000\"\n    }\n  ]\n}"
+      }
+    ]
+  },
+  {
+    "category": "Odometer Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/odometerrecords/all",
+        "description": "Gets Odometer Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/odometerrecords",
+        "description": "Gets Odometer Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/odometerrecords/latest",
+        "description": "Gets latest Odometer Reading for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/odometerrecords/add",
+        "description": "Adds an Odometer Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "autoIncludeEquipment",
+            "required": false,
+            "placeholder": "Automatically include all currently equipped equipment for the vehicle. Accepts true/false"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"initialOdometer\": 15000,\n  \"odometer\": 16500,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ],\n  \"equipmentRecordId\": \"\"\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/odometerrecords/update",
+        "description": "Updates an Odometer Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"initialOdometer\": 15000,\n  \"odometer\": 16500,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ],\n  \"equipmentRecordId\": \"\"\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/odometerrecords/recalculate",
+        "description": "Recalculate Odometer Record distance for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/odometerrecords/delete",
+        "description": "Deletes an Odometer Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Odometer Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Plan Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/planrecords/all",
+        "description": "Gets Plan Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/planrecords",
+        "description": "Gets Plan Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/planrecords/add",
+        "description": "Adds a Plan Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"description\": \"Test Plan\",\n  \"cost\": 420.69,\n  \"type\": \"ServiceRecord\",\n  \"priority\": \"Normal\",\n  \"progress\": \"Backlog\",\n  \"notes\": \"test\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/planrecords/update",
+        "description": "Updates a Plan Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"description\": \"Test Plan\",\n  \"cost\": 420.69,\n  \"type\": \"ServiceRecord\",\n  \"priority\": \"Normal\",\n  \"progress\": \"InProgress\",\n  \"notes\": \"test\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/planrecords/delete",
+        "description": "Deletes a Plan Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Plan Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Service Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/servicerecords/all",
+        "description": "Gets Service Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/servicerecords",
+        "description": "Gets Service Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/servicerecords/add",
+        "description": "Adds a Service Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/servicerecords/update",
+        "description": "Updates a Service Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/servicerecords/delete",
+        "description": "Deletes a Service Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Service Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Repair Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/repairrecords/all",
+        "description": "Gets Repair Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/repairrecords",
+        "description": "Gets Repair Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/repairrecords/add",
+        "description": "Adds a Repair Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/repairrecords/update",
+        "description": "Updates a Repair Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/repairrecords/delete",
+        "description": "Deletes a Repair Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Repair Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Upgrade Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/upgraderecords/all",
+        "description": "Gets Upgrade Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/upgraderecords",
+        "description": "Gets Upgrade Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/upgraderecords/add",
+        "description": "Adds an Upgrade Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/upgraderecords/update",
+        "description": "Updates an Upgrade Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/upgraderecords/delete",
+        "description": "Deletes an Upgrade Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Upgrade Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Supply Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/supplyrecords/all",
+        "description": "Gets Supply Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/supplyrecords",
+        "description": "Gets Supply Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/supplyrecords/add",
+        "description": "Adds a Supply Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"partNumber\": \"LL-12345\",\n  \"partSupplier\": \"Hargata Softworks\",\n  \"partQuantity\": 5,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/supplyrecords/update",
+        "description": "Updates a Supply Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"partNumber\": \"LL-12345\",\n  \"partSupplier\": \"Hargata Softworks\",\n  \"partQuantity\": 5,\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/supplyrecords/delete",
+        "description": "Deletes a Supply Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Supply Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Tax Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/taxrecords/all",
+        "description": "Gets Tax Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/taxrecords",
+        "description": "Gets Tax Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/taxrecords/add",
+        "description": "Adds a Tax Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/taxrecords/update",
+        "description": "Updates a Tax Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"description\": \"Test\",\n  \"cost\": 123.45,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/taxrecords/delete",
+        "description": "Deletes a Tax Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Tax Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Gas Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/gasrecords/all",
+        "description": "Gets Gas Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          },
+          {
+            "name": "useMPG",
+            "required": false,
+            "placeholder": "Use MPG Calculations"
+          },
+          {
+            "name": "useUKMPG",
+            "required": false,
+            "placeholder": "Use UK MPG Calculations"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/gasrecords",
+        "description": "Gets Gas Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "placeholder": "Minimum date for records"
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "placeholder": "Maximum date for records"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          },
+          {
+            "name": "useMPG",
+            "required": false,
+            "placeholder": "Use MPG Calculations"
+          },
+          {
+            "name": "useUKMPG",
+            "required": false,
+            "placeholder": "Use UK MPG Calculations"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/gasrecords/add",
+        "description": "Adds a Gas Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"fuelConsumed\": 12.34,\n  \"cost\": 123.45,\n  \"isFillToFull\": true,\n  \"missedFuelUp\": false,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/gasrecords/update",
+        "description": "Updates a Gas Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"date\": \"2026-01-03\",\n  \"odometer\": 15000,\n  \"fuelConsumed\": 12.34,\n  \"cost\": 123.45,\n  \"isFillToFull\": true,\n  \"missedFuelUp\": false,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/gasrecords/delete",
+        "description": "Deletes a Gas Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Gas Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Reminder Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/reminders/all",
+        "description": "Gets Reminder Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          },
+          {
+            "name": "urgencies",
+            "required": false,
+            "placeholder": "List of urgencies"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/reminders",
+        "description": "Gets Reminder Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          },
+          {
+            "name": "urgencies",
+            "required": false,
+            "placeholder": "List of urgencies"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/reminders/add",
+        "description": "Adds a Reminder Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"description\": \"Test Reminder\",\n  \"dueDate\": \"2024-01-04\",\n  \"dueOdometer\": 15000,\n  \"metric\": \"Both\",\n  \"notes\": \"test\",\n  \"tags\": \"testing\"\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/reminders/update",
+        "description": "Updates a Reminder Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"description\": \"Test Reminder\",\n  \"dueDate\": \"2024-01-04\",\n  \"dueOdometer\": 15000,\n  \"metric\": \"Odometer\",\n  \"notes\": \"test\",\n  \"tags\": \"testing\"\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/reminders/delete",
+        "description": "Deletes a Reminder Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Reminder Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Equipment Records",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/equipmentrecords/all",
+        "description": "Gets Equipment Records for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/equipmentrecords",
+        "description": "Gets Equipment Records for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/equipmentrecords/add",
+        "description": "Adds an Equipment Record for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"description\": \"Test Equipment\",\n  \"isEquipped\": true,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/equipmentrecords/update",
+        "description": "Updates an Equipment Record for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"description\": \"Test Equipment\",\n  \"isEquipped\": true,\n  \"notes\": \"test\",\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/equipmentrecords/delete",
+        "description": "Deletes an Equipment Record",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Equipment Record"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Notes",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/notes/all",
+        "description": "Gets Notes for all vehicles in user's garage",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/notes",
+        "description": "Gets Notes for a vehicle in user's garage",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          },
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/vehicle/notes/add",
+        "description": "Adds a Note for a vehicle",
+        "params": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "placeholder": "Id of the vehicle"
+          }
+        ],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"description\": \"Note Example\",\n  \"noteText\": \"Test note text added for this record\",\n  \"pinned\": false,\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/vehicle/notes/update",
+        "description": "Updates a Note for a vehicle",
+        "params": [],
+        "requestBodyParam": "input",
+        "bodySample": "{\n  \"id\": 1,\n  \"description\": \"Note Updated Example\",\n  \"noteText\": \"Test note text body update for this record\",\n  \"pinned\": true,\n  \"tags\": \"testing\",\n  \"extraFields\": [\n    {\n      \"name\": \"location\",\n      \"value\": \"Price Utah\"\n    }\n  ],\n  \"files\": [\n    {\n      \"name\": \"Attachment Example\",\n      \"location\": \"https://lubelogger.com\"\n    }\n  ]\n}"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/vehicle/notes/delete",
+        "description": "Deletes a Note",
+        "params": [
+          {
+            "name": "id",
+            "required": true,
+            "placeholder": "Id of the Note"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Miscellaneous",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/calendar",
+        "description": "Gets reminders calendar in ICS format",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/extrafields",
+        "description": "Gets configured extra fields",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/documents/upload",
+        "description": "Upload Documents",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/whoami",
+        "description": "Gets information for current user",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/info",
+        "description": "Gets server information for LubeLogger instance",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/version",
+        "description": "Gets current version for LubeLogger instance",
+        "params": [
+          {
+            "name": "checkForUpdate",
+            "required": false,
+            "placeholder": "Check for updates"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  },
+  {
+    "category": "Admin",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/vehicle/taxrecords/check",
+        "description": "Updates outdated recurring Tax Records",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/vehicle/reminders/send",
+        "description": "Send Reminders out to collaborators",
+        "params": [
+          {
+            "name": "id",
+            "required": false,
+            "placeholder": "Id of the specific record"
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "placeholder": "Tags separated by space"
+          },
+          {
+            "name": "urgencies",
+            "required": false,
+            "placeholder": "List of urgencies"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/makebackup",
+        "description": "Creates a backup and returns download link",
+        "params": [
+          {
+            "name": "output",
+            "required": false,
+            "placeholder": "Accepted values: download, email, or leave blank for a link to the file"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/tempfiles",
+        "description": "Gets files in temp directory",
+        "params": [],
+        "requestBodyParam": null,
+        "bodySample": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/cleanup",
+        "description": "Cleans out temp files and unlinked attachments",
+        "params": [
+          {
+            "name": "deepClean",
+            "required": false,
+            "placeholder": "Deletes unlinked attachments"
+          }
+        ],
+        "requestBodyParam": null,
+        "bodySample": null
+      }
+    ]
+  }
+]
