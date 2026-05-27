@@ -26,7 +26,9 @@ Import-Module LubeLoggerPwsh
 
 ## Quick Start
 
-See the full endpoint and implementation matrix in [docs/api-reference.md](docs/api-reference.md).
+See the full endpoint and implementation matrix in [docs/api/index.md](docs/api/index.md).
+
+Release history is tracked in [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 Function help documentation will be expanded over time.
 

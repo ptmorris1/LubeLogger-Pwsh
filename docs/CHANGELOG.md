@@ -1,3 +1,7 @@
+---
+icon: lucide/square-pen
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
