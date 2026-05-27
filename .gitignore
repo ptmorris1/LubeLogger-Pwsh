@@ -1,4 +1,5 @@
-.github
+instructions
+copilot-instructions.md
 New-Build.ps1
 .cache
 site
